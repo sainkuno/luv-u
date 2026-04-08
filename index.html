@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Achi ❤️</title>
+    <title>For You ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-pink: #ffafbd;
-            --soft-white: #fff9fa;
-            --text-color: #5d5d5d;
+            /* เปลี่ยนโทนสีเป็นม่วงพาสเทล */
+            --primary-purple: #e0c3fc;
+            --soft-white: #f8f7ff;
+            --text-color: #4a4a4a;
+            --main-accent: #9d71e8; /* สีม่วงเข้มสำหรับปุ่มและหัวข้อ */
         }
 
         body {
@@ -19,13 +21,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            /* พื้นหลังไล่เฉดม่วงพาสเทล */
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
             font-family: 'Kanit', sans-serif;
             overflow: hidden;
             position: relative;
         }
 
-        /* ตกแต่งพื้นหลัง */
+        /* ตกแต่งพื้นหลังหัวใจลอย */
         .floating-background {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -35,10 +38,9 @@
 
         .heart-shape {
             position: absolute;
-            background: rgba(255,255,255,0.4); /* สีหัวใจจางๆ */
+            background: rgba(255,255,255,0.35);
             animation: float 10s infinite linear;
             opacity: 0;
-            /* เทคนิคสร้างรูปหัวใจด้วย clip-path */
             clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
             transform-origin: center;
         }
@@ -50,7 +52,7 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* สไตล์ของการ์ด (เหมือนเดิม) */
+        /* สไตล์ของการ์ด */
         .card {
             background: var(--soft-white);
             padding: 40px;
@@ -60,10 +62,11 @@
             width: 350px;
             position: relative;
             z-index: 10;
+            transition: all 0.5s ease;
         }
 
         .main-heart {
-            color: #ff4d4d;
+            color: var(--main-accent);
             font-size: 50px;
             margin-bottom: 10px;
             animation: beat 1s infinite alternate;
@@ -73,14 +76,23 @@
             to { transform: scale(1.2); }
         }
 
-        h1 { color: #ff6b6b; font-size: 1.5rem; margin-bottom: 20px; }
+        h1 { color: var(--main-accent); font-size: 1.5rem; margin-bottom: 20px; }
 
         #message-box {
             min-height: 80px;
             color: var(--text-color);
             font-size: 1.1rem;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.6;
+        }
+
+        #retry-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .btn-container {
@@ -90,7 +102,7 @@
         }
 
         button {
-            padding: 10px 25px;
+            padding: 12px 28px;
             border: none;
             border-radius: 50px;
             font-family: 'Kanit', sans-serif;
@@ -100,17 +112,22 @@
         }
 
         #yes-btn {
-            background: #ff6b6b;
+            background: var(--main-accent);
             color: white;
-            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+            box-shadow: 0 4px 15px rgba(157, 113, 232, 0.4);
         }
 
-        #yes-btn:hover { transform: scale(1.1); background: #ff4d4d; }
+        #yes-btn:hover { transform: scale(1.1); background: #8252d3; }
 
         #no-btn {
-            background: #eee;
-            color: #999;
-            transition: 0.1s;
+            background: #e2e2e2;
+            color: #888;
+        }
+
+        #retry-btn {
+            display: none;
+            background: #b892ff;
+            color: white;
         }
     </style>
 </head>
@@ -118,71 +135,94 @@
 
     <div class="floating-background" id="background"></div>
 
-    <div class="card">
-        <div class="main-heart">❤️</div>
+    <div class="card" id="main-card">
+        <div class="main-heart" id="card-icon">💜</div>
         <h1 id="title">เค้ามีอะไรจะบอก...</h1>
+        
+        <img src="" alt="Retry Image" id="retry-image">
+
         <div id="message-box"></div>
         
         <div class="btn-container" id="actions">
             <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
-            <button id="no-btn" onmouseover="flee()">ไม่</button>
+            <button id="no-btn" onmouseover="showRetry()" onclick="showRetry()">ไม่</button>
+            <button id="retry-btn" onclick="resetCard()">เลือกใหม่นะ</button>
         </div>
     </div>
 
     <script>
-        const text = "ขอโทษที่ทำให้เสียใจนะ... ต่อไปนี้จะปรับปรุงตัวให้ดีขึ้น ไม่อยากให้เราโกรธกันนานเลย ดีกันนะปักเป้า (อีอ้วน) 🥺";
+        const originalText = "ขอโทษที่ทำให้ไม่สบายใจนะ... ต่อไปนี้จะปรับปรุงตัวให้ดีขึ้น ไม่อยากให้เราโกรธกันนานเลย ดีกันนะคนเก่ง เดี๋ยวพี่จะตามใจทุกอย่างเลยครับ 🥺";
         let index = 0;
+        let isTyping = false;
 
         function typeWriter() {
-            if (index < text.length) {
-                document.getElementById("message-box").innerHTML += text.charAt(index);
+            if (index < originalText.length && isTyping) {
+                document.getElementById("message-box").innerHTML += originalText.charAt(index);
                 index++;
                 setTimeout(typeWriter, 50);
             }
         }
 
-        function flee() {
-            const btn = document.getElementById('no-btn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.position = 'absolute';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+        function startTyping() {
+            if(!isTyping) {
+                isTyping = true;
+                document.getElementById("message-box").innerHTML = "";
+                index = 0;
+                typeWriter();
+            }
+        }
+
+        function showRetry() {
+            isTyping = false;
+            document.getElementById('title').innerHTML = "ปุ่มนี้พังซะแล้ว!";
+            document.getElementById('message-box').innerHTML = "ลองกดปุ่มข้างๆ ดูใหม่นะคนดี";
+            
+            const retryImg = document.getElementById('retry-image');
+            // น้องสามารถเปลี่ยน URL รูปตรงนี้ได้ตามใจชอบ
+            retryImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaGZ4ZzB6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Jm09Zw/LRVn5AvuF0Iu69W16t/giphy.gif"; 
+            retryImg.style.display = 'block';
+
+            document.getElementById('card-icon').style.display = 'none';
+            document.getElementById('no-btn').style.display = 'none';
+            document.getElementById('retry-btn').style.display = 'inline-block';
+        }
+
+        function resetCard() {
+            document.getElementById('retry-image').style.display = 'none';
+            document.getElementById('card-icon').style.display = 'block';
+            document.getElementById('no-btn').style.display = 'inline-block';
+            document.getElementById('retry-btn').style.display = 'none';
+            document.getElementById('title').innerHTML = "เค้ามีอะไรจะบอก...";
+            startTyping();
         }
 
         function sayYes() {
-            document.getElementById('title').innerHTML = "ขอบคุณนะค้าบ!";
-            document.getElementById('message-box').innerHTML = "เยยยย้ รักนะจุฟๆ (ง้อเรื่องเมื่อคืนเฉยๆ) ❤️";
+            isTyping = false;
+            document.getElementById('retry-image').style.display = 'none';
+            document.getElementById('card-icon').style.display = 'block';
+            document.getElementById('title').innerHTML = "รักที่สุดเลย!";
+            document.getElementById('message-box').innerHTML = "ดีกันแล้วนะ สัญญาว่าจะดูแลให้ดีที่สุดเลยครับ ❤️";
+            document.getElementById('card-icon').innerHTML = "🔮";
             document.getElementById('actions').style.display = 'none';
         }
 
-        // สร้างหัวใจลอยในพื้นหลัง
         function createBackgroundHearts() {
             const container = document.getElementById('background');
-            for(let i=0; i<20; i++) { // สร้าง 20 ดวง
+            for(let i=0; i<20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart-shape';
-                
-                // สุ่มขนาด
                 const size = Math.random() * 30 + 10;
                 heart.style.width = size + 'px';
                 heart.style.height = size + 'px';
-                
-                // สุ่มตำแหน่งเริ่มต้น (X)
                 heart.style.left = Math.random() * 100 + '%';
-                
-                // สุ่มเวลาเริ่มต้น (delay) เพื่อไม่ให้ลอยขึ้นพร้อมกัน
                 heart.style.animationDelay = (Math.random() * 8) + 's';
-                
-                // สุ่มระยะเวลาแอนิเมชัน
-                heart.style.animationDuration = (Math.random() * 5 + 7) + 's'; // 7-12 วินาที
-
+                heart.style.animationDuration = (Math.random() * 5 + 7) + 's';
                 container.appendChild(heart);
             }
         }
 
         createBackgroundHearts();
-        window.onload = typeWriter;
+        window.onload = startTyping;
     </script>
 </body>
 </html>
