@@ -109,3 +109,80 @@
 
         #no-btn {
             background: #eee;
+            color: #999;
+            transition: 0.1s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-background" id="background"></div>
+
+    <div class="card">
+        <div class="main-heart">❤️</div>
+        <h1 id="title">เค้ามีอะไรจะบอก...</h1>
+        <div id="message-box"></div>
+        
+        <div class="btn-container" id="actions">
+            <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
+            <button id="no-btn" onmouseover="flee()">ไม่</button>
+        </div>
+    </div>
+
+    <script>
+        const text = "ขอโทษที่ทำให้ไม่สบายใจนะ... ต่อไปนี้จะปรับปรุงตัวให้ดีขึ้น ไม่อยากให้เราโกรธกันนานเลย ดีกันนะคนเก่ง ของขวัญรออยู่ที่เค้านะครับ 🥺";
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("message-box").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        function flee() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function sayYes() {
+            document.getElementById('title').innerHTML = "ขอบคุณนะค้าบ!";
+            document.getElementById('message-box').innerHTML = "เย้! งั้นเดี๋ยวพาไปกินของอร่อยนะ รักที่สุดเลย ❤️";
+            document.getElementById('actions').style.display = 'none';
+        }
+
+        // สร้างหัวใจลอยในพื้นหลัง
+        function createBackgroundHearts() {
+            const container = document.getElementById('background');
+            for(let i=0; i<20; i++) { // สร้าง 20 ดวง
+                const heart = document.createElement('div');
+                heart.className = 'heart-shape';
+                
+                // สุ่มขนาด
+                const size = Math.random() * 30 + 10;
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
+                
+                // สุ่มตำแหน่งเริ่มต้น (X)
+                heart.style.left = Math.random() * 100 + '%';
+                
+                // สุ่มเวลาเริ่มต้น (delay) เพื่อไม่ให้ลอยขึ้นพร้อมกัน
+                heart.style.animationDelay = (Math.random() * 8) + 's';
+                
+                // สุ่มระยะเวลาแอนิเมชัน
+                heart.style.animationDuration = (Math.random() * 5 + 7) + 's'; // 7-12 วินาที
+
+                container.appendChild(heart);
+            }
+        }
+
+        createBackgroundHearts();
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
