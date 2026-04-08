@@ -154,6 +154,11 @@
         let index = 0;
         let isTyping = false;
 
+         
+            const retryImg = document.getElementById('retry-image');
+            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1"; 
+            retryImg.style.display = 'block';https://scontent.xx.fbcdn.net/v/t1.15752-9/664828694_1658828865258397_6339718553849908934_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_ohc=-UTSnehH23wQ7kNvwFvnXEd&_nc_oc=AdrooRTMmzy1aPrSm5drE2khrq4fufNWRIwqvd91JQegarun9r-Xu31EGeYeurUoMltB1xM1h9QkZRz6ATozta-j&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AHM6ujoF6FsfZJkkiBDAyxITkqHUVgXDQs0EUXnT9kURA&oe=69FE14B3
+
         function typeWriter() {
             if (index < originalText.length && isTyping) {
                 document.getElementById("message-box").innerHTML += originalText.charAt(index);
@@ -171,7 +176,7 @@
 
         function showRetry() {
             isTyping = false;
-            document.getElementById('title').innerHTML = "ปุ่มนี้กดไม่ได้นาา";
+            document.getElementById('title').innerHTML = "เลือกใหม่นะจ๊ะอิอิ";
             document.getElementById('message-box').innerHTML = " ิ ิ ิเววเลือกใหม่อีอ้วน";
             
             const retryImg = document.getElementById('retry-image');
