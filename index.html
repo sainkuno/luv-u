@@ -191,12 +191,10 @@
         const originalText = "ขอโทษที่ทำให้เสียใจนะ... จะพยายามปรับปรุงตัวให้ดีขึ้น ไม่อยากให้น้อยใจ ดีกันนะ อีอ้วรนร 🥺";
         let index = 0;
         let isTyping = false;
+           const img = document.getElementById('display-image');
+            img.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/663588659_954371336991226_8566557209408135130_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_ohc=zfhwQnE1HpkQ7kNvwHPXkZU&_nc_oc=AdqEnfJ61CpiHOKKizn1splR9wehU4x1_DoaZoWQEUFVnmJIkDP9DTxouiiHnrlEWyZOL4PiI_tNYwMmtaw5LIRK&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AEBGChsKqd1k93ev4DARYUqnSLWOClPHeXDc5TbwyPz8w&oe=69FE20FE"; 
+            img.style.display = 'block';
 
-         <div id="final-page">
-        <div class="final-title">Luv U My Friend</div>
-        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/663588659_954371336991226_8566557209408135130_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_ohc=zfhwQnE1HpkQ7kNvwHPXkZU&_nc_oc=AdqEnfJ61CpiHOKKizn1splR9wehU4x1_DoaZoWQEUFVnmJIkDP9DTxouiiHnrlEWyZOL4PiI_tNYwMmtaw5LIRK&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AEBGChsKqd1k93ev4DARYUqnSLWOClPHeXDc5TbwyPz8w&oe=69FE20FE">
-        <button onclick="location.reload()" style="background: white; color: var(--main-accent); margin-top: 30px; width: 140px; font-size: 0.9rem;">กลับหน้าแรก</button>
-    </div>
 
         function typeWriter() {
             if (index < originalText.length && isTyping) {
