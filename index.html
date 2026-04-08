@@ -22,8 +22,35 @@
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             font-family: 'Kanit', sans-serif;
             overflow: hidden;
+            position: relative;
         }
 
+        /* ตกแต่งพื้นหลัง */
+        .floating-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.4); /* สีหัวใจจางๆ */
+            animation: float 10s infinite linear;
+            opacity: 0;
+            /* เทคนิคสร้างรูปหัวใจด้วย clip-path */
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            transform-origin: center;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* สไตล์ของการ์ด (เหมือนเดิม) */
         .card {
             background: var(--soft-white);
             padding: 40px;
@@ -35,7 +62,7 @@
             z-index: 10;
         }
 
-        .heart {
+        .main-heart {
             color: #ff4d4d;
             font-size: 50px;
             margin-bottom: 10px;
@@ -82,106 +109,3 @@
 
         #no-btn {
             background: #eee;
-            color: #999;
-        }
-
-        /* ตกแต่งพื้นหลัง */
-        .floating-circles {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
-        .circle {
-            position: absolute;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            animation: float 10s infinite linear;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="floating-circles" id="circles"></div>
-
-    <div class="card">
-        <div class="heart">❤️</div>
-        <h1 id="title">เค้ามีอะไรจะบอก...</h1>
-        <div id="message-box"></div>
-        
-        <div class="btn-container" id="actions">
-            <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
-            <button id="no-btn" onmouseover="flee()">ไม่</button>
-        </div>
-    </div>
-
-    <script>
-        const text = "ขอโทษที่ทำให้ไม่สบายใจนะ... ต่อไปนี้จะปรับปรุงตัวให้ดีขึ้น ไม่อยากให้เราโกรธกันนานเลย ดีกันนะคนเก่ง ของขวัญรออยู่ที่เค้านะครับ 🥺";
-        let index = 0;
-
-        function typeWriter() {
-            if (index < text.length) {
-                document.getElementById("message-box").innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-
-        function flee() {
-            const btn = document.getElementById('no-btn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.position = 'absolute';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
-
-        function sayYes() {
-            document.getElementById('title').innerHTML = "ขอบคุณนะค้าบ!";
-            document.getElementById('message-box').innerHTML = "เย้! งั้นเดี๋ยวพาไปกินของอร่อยนะ รักที่สุดเลย ❤️";
-            document.getElementById('actions').style.display = 'none';
-            // เพิ่มเอฟเฟกต์หัวใจเต็มจอ
-            for(let i=0; i<20; i++) { createHeart(); }
-        }
-
-        // สร้างวงกลมลอยไปมาในพื้นหลัง
-        function createCircles() {
-            const container = document.getElementById('circles');
-            for(let i=0; i<15; i++) {
-                const circle = document.createElement('div');
-                const size = Math.random() * 50 + 10;
-                circle.className = 'circle';
-                circle.style.width = size + 'px';
-                circle.style.height = size + 'px';
-                circle.style.left = Math.random() * 100 + '%';
-                circle.style.top = Math.random() * 100 + '%';
-                circle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                container.appendChild(circle);
-            }
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '100vh';
-            heart.style.fontSize = '24px';
-            heart.style.animation = 'rise 3s forwards';
-            document.body.appendChild(heart);
-        }
-
-        createCircles();
-        window.onload = typeWriter;
-    </script>
-
-    <style>
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-        @keyframes rise {
-            to { transform: translateY(-110vh); opacity: 0; }
-        }
-    </style>
-</body>
-</html>
