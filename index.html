@@ -2,16 +2,15 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Achi ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For You ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* เปลี่ยนโทนสีเป็นม่วงพาสเทล */
             --primary-purple: #e0c3fc;
             --soft-white: #f8f7ff;
             --text-color: #4a4a4a;
-            --main-accent: #9d71e8; /* สีม่วงเข้มสำหรับปุ่มและหัวข้อ */
+            --main-accent: #9d71e8;
         }
 
         body {
@@ -21,14 +20,14 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* พื้นหลังไล่เฉดม่วงพาสเทล */
             background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
             font-family: 'Kanit', sans-serif;
             overflow: hidden;
             position: relative;
+            /* ป้องกันการเลื่อนหน้าจอไปมาบนมือถือ */
+            touch-action: manipulation;
         }
 
-        /* ตกแต่งพื้นหลังหัวใจลอย */
         .floating-background {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -42,85 +41,84 @@
             animation: float 10s infinite linear;
             opacity: 0;
             clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
-            transform-origin: center;
         }
 
         @keyframes float {
-            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* สไตล์ของการ์ด */
         .card {
             background: var(--soft-white);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            width: 350px;
+            width: 85%; /* ปรับขนาดให้พอดีหน้าจอมือถือ */
+            max-width: 350px;
             position: relative;
             z-index: 10;
-            transition: all 0.5s ease;
         }
 
         .main-heart {
             color: var(--main-accent);
-            font-size: 50px;
+            font-size: 45px;
             margin-bottom: 10px;
             animation: beat 1s infinite alternate;
         }
 
-        @keyframes beat {
-            to { transform: scale(1.2); }
-        }
+        @keyframes beat { to { transform: scale(1.15); } }
 
-        h1 { color: var(--main-accent); font-size: 1.5rem; margin-bottom: 20px; }
+        h1 { color: var(--main-accent); font-size: 1.4rem; margin-bottom: 15px; }
 
         #message-box {
-            min-height: 80px;
+            min-height: 90px;
             color: var(--text-color);
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 20px;
-            line-height: 1.6;
+            line-height: 1.5;
+            padding: 0 10px;
         }
 
         #retry-image {
-            max-width: 100%;
+            width: 100%;
+            max-width: 200px; /* ไม่ให้รูปใหญ่เกินไปบนมือถือ */
             height: auto;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin: 0 auto 15px auto;
             display: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .btn-container {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            flex-direction: column; /* วางปุ่มซ้อนกันในมือถือจะกดง่ายกว่า */
+            gap: 12px;
+            align-items: center;
         }
 
         button {
-            padding: 12px 28px;
+            width: 80%; /* ปุ่มยาวขึ้นเพื่อให้กดง่าย */
+            padding: 14px 0;
             border: none;
             border-radius: 50px;
             font-family: 'Kanit', sans-serif;
             font-weight: 500;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         #yes-btn {
             background: var(--main-accent);
             color: white;
-            box-shadow: 0 4px 15px rgba(157, 113, 232, 0.4);
+            box-shadow: 0 4px 15px rgba(157, 113, 232, 0.3);
         }
 
-        #yes-btn:hover { transform: scale(1.1); background: #8252d3; }
-
         #no-btn {
-            background: #e2e2e2;
+            background: #ededed;
             color: #888;
         }
 
@@ -128,6 +126,7 @@
             display: none;
             background: #b892ff;
             color: white;
+            width: 80%;
         }
     </style>
 </head>
@@ -135,7 +134,7 @@
 
     <div class="floating-background" id="background"></div>
 
-    <div class="card" id="main-card">
+    <div class="card">
         <div class="main-heart" id="card-icon">💜</div>
         <h1 id="title">เค้ามีอะไรจะบอก...</h1>
         
@@ -145,7 +144,7 @@
         
         <div class="btn-container" id="actions">
             <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
-            <button id="no-btn" onmouseover="showRetry()" onclick="showRetry()">ไม่</button>
+            <button id="no-btn" onclick="showRetry()">ไม่</button>
             <button id="retry-btn" onclick="resetCard()">เลือกใหม่นะ</button>
         </div>
     </div>
@@ -164,21 +163,18 @@
         }
 
         function startTyping() {
-            if(!isTyping) {
-                isTyping = true;
-                document.getElementById("message-box").innerHTML = "";
-                index = 0;
-                typeWriter();
-            }
+            isTyping = true;
+            document.getElementById("message-box").innerHTML = "";
+            index = 0;
+            typeWriter();
         }
 
         function showRetry() {
             isTyping = false;
-            document.getElementById('title').innerHTML = "ปุ่มนี้พังซะแล้ว!";
-            document.getElementById('message-box').innerHTML = "ลองกดปุ่มข้างๆ ดูใหม่นะคนดี";
+            document.getElementById('title').innerHTML = "ปุ่มนี้กดไม่ได้นาา";
+            document.getElementById('message-box').innerHTML = "ลองกดปุ่มข้างบนดูใหม่นะครับ";
             
             const retryImg = document.getElementById('retry-image');
-            // น้องสามารถเปลี่ยน URL รูปตรงนี้ได้ตามใจชอบ
             retryImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaGZ4ZzB6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Jm09Zw/LRVn5AvuF0Iu69W16t/giphy.gif"; 
             retryImg.style.display = 'block';
 
@@ -200,23 +196,23 @@
             isTyping = false;
             document.getElementById('retry-image').style.display = 'none';
             document.getElementById('card-icon').style.display = 'block';
-            document.getElementById('title').innerHTML = "รักที่สุดเลย!";
-            document.getElementById('message-box').innerHTML = "ดีกันแล้วนะ สัญญาว่าจะดูแลให้ดีที่สุดเลยครับ ❤️";
+            document.getElementById('title').innerHTML = "เย้! ขอบคุณนะครับ";
+            document.getElementById('message-box').innerHTML = "ดีกันแล้วนะ รักที่สุดเลย ❤️";
             document.getElementById('card-icon').innerHTML = "🔮";
             document.getElementById('actions').style.display = 'none';
         }
 
         function createBackgroundHearts() {
             const container = document.getElementById('background');
-            for(let i=0; i<20; i++) {
+            for(let i=0; i<15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart-shape';
-                const size = Math.random() * 30 + 10;
+                const size = Math.random() * 25 + 10;
                 heart.style.width = size + 'px';
                 heart.style.height = size + 'px';
                 heart.style.left = Math.random() * 100 + '%';
                 heart.style.animationDelay = (Math.random() * 8) + 's';
-                heart.style.animationDuration = (Math.random() * 5 + 7) + 's';
+                heart.style.animationDuration = (Math.random() * 6 + 6) + 's';
                 container.appendChild(heart);
             }
         }
@@ -225,4 +221,4 @@
         window.onload = startTyping;
     </script>
 </body>
-</html>
+</html>>
