@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Achi ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-purple: #e0c3fc;
@@ -24,10 +24,10 @@
             font-family: 'Kanit', sans-serif;
             overflow: hidden;
             position: relative;
-            /* ป้องกันการเลื่อนหน้าจอไปมาบนมือถือ */
             touch-action: manipulation;
         }
 
+        /* หัวใจลอย */
         .floating-background {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -56,10 +56,11 @@
             border-radius: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            width: 85%; /* ปรับขนาดให้พอดีหน้าจอมือถือ */
+            width: 85%;
             max-width: 350px;
             position: relative;
             z-index: 10;
+            transition: all 0.5s ease;
         }
 
         .main-heart {
@@ -71,7 +72,7 @@
 
         @keyframes beat { to { transform: scale(1.15); } }
 
-        h1 { color: var(--main-accent); font-size: 1.4rem; margin-bottom: 15px; }
+        h1 { color: var(--main-accent); font-size: 1.4rem; margin-bottom: 15px; font-weight: 500; }
 
         #message-box {
             min-height: 90px;
@@ -82,24 +83,25 @@
             padding: 0 10px;
         }
 
-        #retry-image {
+        #display-image {
             width: 100%;
-            max-width: 200px; /* ไม่ให้รูปใหญ่เกินไปบนมือถือ */
+            max-width: 250px;
             height: auto;
             border-radius: 15px;
             margin: 0 auto 15px auto;
             display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .btn-container {
             display: flex;
-            flex-direction: column; /* วางปุ่มซ้อนกันในมือถือจะกดง่ายกว่า */
+            flex-direction: column;
             gap: 12px;
             align-items: center;
         }
 
         button {
-            width: 80%; /* ปุ่มยาวขึ้นเพื่อให้กดง่าย */
+            width: 80%;
             padding: 14px 0;
             border: none;
             border-radius: 50px;
@@ -111,22 +113,49 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        #yes-btn {
-            background: var(--main-accent);
-            color: white;
-            box-shadow: 0 4px 15px rgba(157, 113, 232, 0.3);
-        }
-
-        #no-btn {
-            background: #ededed;
-            color: #888;
-        }
-
-        #retry-btn {
-            display: none;
+        #yes-btn { background: var(--main-accent); color: white; box-shadow: 0 4px 15px rgba(157, 113, 232, 0.3); }
+        #no-btn { background: #ededed; color: #888; }
+        
+        /* สไตล์ปุ่มเสริม */
+        .extra-btn {
             background: #b892ff;
             color: white;
-            width: 80%;
+            box-shadow: 0 4px 15px rgba(184, 146, 255, 0.3);
+        }
+
+        /* หน้าสุดท้าย */
+        #final-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .final-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--main-accent);
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 0px white;
+        }
+
+        .final-photo {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 6px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -134,41 +163,35 @@
 
     <div class="floating-background" id="background"></div>
 
-    <div class="card">
+    <div class="card" id="main-card">
         <div class="main-heart" id="card-icon">💜</div>
         <h1 id="title">เค้ามีอะไรจะบอก...</h1>
         
-        <img src="" alt="Retry Image" id="retry-image">
+        <img src="" alt="Moment" id="display-image">
 
         <div id="message-box"></div>
         
-        <div class="btn-container" id="actions">
+        <div class="btn-container">
             <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
             <button id="no-btn" onclick="showRetry()">ไม่</button>
-            <button id="retry-btn" onclick="resetCard()">เลือกใหม่นะ</button>
-            <button id="more-btn" onclick="showFinal()">มีอีก...</button>
+            
+            <!-- ใช้ inline style เพื่อบังคับซ่อน 100% -->
+            <button id="retry-btn" class="extra-btn" onclick="resetCard()" style="display: none;">เลือกใหม่นะ</button>
+            <button id="more-btn" class="extra-btn" onclick="showFinal()" style="display: none;">มีอีก...</button>
         </div>
     </div>
 
-    
-     <div id="final-page">
+    <div id="final-page">
         <div class="final-title">Luv U My Friend</div>
-        <!-- ใส่ลิงก์รูปเพื่อนตรงนี้ -->
-        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1" class="final-photo" alt="Friend Photo">
-        <button onclick="location.reload()" style="background: white; color: var(--main-accent); margin-top: 30px; width: 140px; font-size: 0.8rem;">กลับหน้าแรก</button>
+        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1" class="final-photo" alt="Friend">
+        <button onclick="location.reload()" style="background: white; color: var(--main-accent); margin-top: 30px; width: 140px; font-size: 0.9rem;">กลับหน้าแรก</button>
     </div>
-  
-    
 
     <script>
         const originalText = "ขอโทษที่ทำให้เสียใจนะ... จะพยายามปรับปรุงตัวให้ดีขึ้น ไม่อยากให้น้อยใจ ดีกันนะ อีอ้วรนร 🥺";
         let index = 0;
         let isTyping = false;
 
-         
-            const retryImg = document.getElementById('retry-image');
-            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/664392085_1609513446949931_6697063004292937870_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=Jh_4otLiPRkQ7kNvwFvxXaa&_nc_oc=Adqwf-j68QskeNcbsMks8VqEZtAric5Pv7qKAg56iZjA6NG2I3x8X7SXmziLK6KFGWnHEVg0zFhLubMo16LvQjFm&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AGUzZ9WHDE6l4eNxuX15lW_mifFsmu02upQRX59xMZOcQ&oe=69FE23D4"; 
-            retryImg.style.display = 'block';https:
         function typeWriter() {
             if (index < originalText.length && isTyping) {
                 document.getElementById("message-box").innerHTML += originalText.charAt(index);
@@ -187,21 +210,21 @@
         function showRetry() {
             isTyping = false;
             document.getElementById('title').innerHTML = "เลือกใหม่นะจ๊ะอิอิ";
-            document.getElementById('message-box').innerHTML = " ิ ิ ิเววเลือกใหม่อีอ้วน";
-            
-            const retryImg = document.getElementById('retry-image');
-            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/663772285_2161976371297810_5953343043148276564_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=-9oyW-Ut-ksQ7kNvwHUE3qY&_nc_oc=AdqqK-amNEametykBXVZ_ST1pwxJvXeSdcogPvHdXERgCFZhl1x95UKQk-ukEMjLPyR_RcshzmKMxlmzuA6ZGBLV&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AHl-lgoRCRGXFQ67ah8k54eKZ2hs4pc2eH52LH7EtmxSQ&oe=69FE09A4"; 
-            retryImg.style.display = 'block';
-
+            document.getElementById('message-box').innerHTML = "อิอิ เลือกใหม่อีอ้วน";
+            const img = document.getElementById('display-image');
+            img.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/663772285_2161976371297810_5953343043148276564_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=-9oyW-Ut-ksQ7kNvwHUE3qY&_nc_oc=AdqqK-amNEametykBXVZ_ST1pwxJvXeSdcogPvHdXERgCFZhl1x95UKQk-ukEMjLPyR_RcshzmKMxlmzuA6ZGBLV&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE09A4"; 
+            img.style.display = 'block';
             document.getElementById('card-icon').style.display = 'none';
             document.getElementById('no-btn').style.display = 'none';
+            document.getElementById('yes-btn').style.display = 'none';
             document.getElementById('retry-btn').style.display = 'inline-block';
         }
 
         function resetCard() {
-            document.getElementById('retry-image').style.display = 'none';
+            document.getElementById('display-image').style.display = 'none';
             document.getElementById('card-icon').style.display = 'block';
             document.getElementById('no-btn').style.display = 'inline-block';
+            document.getElementById('yes-btn').style.display = 'inline-block';
             document.getElementById('retry-btn').style.display = 'none';
             document.getElementById('title').innerHTML = "เค้ามีอะไรจะบอก...";
             startTyping();
@@ -209,20 +232,27 @@
 
         function sayYes() {
             isTyping = false;
-            document.getElementById('retry-image').style.display = 'none';
-            document.getElementById('card-icon').style.display = 'block';
             document.getElementById('title').innerHTML = "รักอิหมาเน่า";
             document.getElementById('message-box').innerHTML = "ดีกันแล้วนะ รักปักเป้านะจุฟๆ ❤️";
-            document.getElementById('card-icon').innerHTML = "💜";
-            document.getElementById('actions').style.display = 'none';
-            
+            const img = document.getElementById('display-image');
+            img.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1"; 
+            img.style.display = 'block';
 
+            document.getElementById('yes-btn').style.display = 'none';
+            document.getElementById('no-btn').style.display = 'none';
+            // แสดงปุ่ม "มีอีก..." หลังกดให้อภัยเท่านั้น
+            document.getElementById('more-btn').style.display = 'inline-block';
+        }
 
-
-              
-            const retryImg = document.getElementById('retry-image');
-            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1"; 
-            retryImg.style.display = 'block';
+        function showFinal() {
+            const card = document.getElementById('main-card');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                card.style.display = 'none';
+                document.getElementById('final-page').style.display = 'flex';
+                document.body.style.background = "linear-gradient(135deg, #d8b4fe 0%, #818cf8 100%)";
+            }, 400);
         }
 
         function createBackgroundHearts() {
@@ -230,18 +260,13 @@
             for(let i=0; i<15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart-shape';
-                const size = Math.random() * 25 + 10;
-                heart.style.width = size + 'px';
-                heart.style.height = size + 'px';
                 heart.style.left = Math.random() * 100 + '%';
                 heart.style.animationDelay = (Math.random() * 8) + 's';
-                heart.style.animationDuration = (Math.random() * 6 + 6) + 's';
                 container.appendChild(heart);
             }
         }
-
         createBackgroundHearts();
         window.onload = startTyping;
     </script>
 </body>
-</html>>
+</html>
