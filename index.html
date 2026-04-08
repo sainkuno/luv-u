@@ -146,7 +146,16 @@
             <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
             <button id="no-btn" onclick="showRetry()">ไม่</button>
             <button id="retry-btn" onclick="resetCard()">เลือกใหม่นะ</button>
+            <button id="more-btn" onclick="showFinal()">มีอีก...</button>
         </div>
+    </div>
+
+    
+     <div id="final-page">
+        <div class="final-title">Luv U My Friend</div>
+        <!-- ใส่ลิงก์รูปเพื่อนตรงนี้ -->
+        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/664910429_1587492883385676_524821245316040812_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=yecE8jMRx3EQ7kNvwEzzxTL&_nc_oc=AdpfUOqbYsupjjN_TFUqYnqdrQld7NLlcqs6cV2StS97w6R8RM_6vzgNAVy9ZvFSwNyru8rly-ea5yEEL24ZenwX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AFZE0LNLMPCYBaTRW7SclrzaPWOtkiwndjAT7yT35PrDQ&oe=69FE14E1" class="final-photo" alt="Friend Photo">
+        <button onclick="location.reload()" style="background: white; color: var(--main-accent); margin-top: 30px; width: 140px; font-size: 0.8rem;">กลับหน้าแรก</button>
     </div>
   
     
@@ -158,7 +167,7 @@
 
          
             const retryImg = document.getElementById('retry-image');
-            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/663588659_954371336991226_8566557209408135130_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_ohc=zfhwQnE1HpkQ7kNvwHPXkZU&_nc_oc=AdqEnfJ61CpiHOKKizn1splR9wehU4x1_DoaZoWQEUFVnmJIkDP9DTxouiiHnrlEWyZOL4PiI_tNYwMmtaw5LIRK&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AEBGChsKqd1k93ev4DARYUqnSLWOClPHeXDc5TbwyPz8w&oe=69FE20FE"; 
+            retryImg.src = "https://scontent.xx.fbcdn.net/v/t1.15752-9/664392085_1609513446949931_6697063004292937870_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=Jh_4otLiPRkQ7kNvwFvxXaa&_nc_oc=Adqwf-j68QskeNcbsMks8VqEZtAric5Pv7qKAg56iZjA6NG2I3x8X7SXmziLK6KFGWnHEVg0zFhLubMo16LvQjFm&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&_nc_ss=7a32e&oh=03_Q7cD5AGUzZ9WHDE6l4eNxuX15lW_mifFsmu02upQRX59xMZOcQ&oe=69FE23D4"; 
             retryImg.style.display = 'block';https:
         function typeWriter() {
             if (index < originalText.length && isTyping) {
@@ -206,10 +215,7 @@
             document.getElementById('message-box').innerHTML = "ดีกันแล้วนะ รักปักเป้านะจุฟๆ ❤️";
             document.getElementById('card-icon').innerHTML = "💜";
             document.getElementById('actions').style.display = 'none';
-              <div class="btn-container" id="actions">
-                   <button id="more-btn">มีอีก...</button>
-              <div id="final-page">
-           
+            
 
 
 
