@@ -146,8 +146,16 @@
             <button id="yes-btn" onclick="sayYes()">ให้อภัย</button>
             <button id="no-btn" onclick="showRetry()">ไม่</button>
             <button id="retry-btn" onclick="resetCard()">เลือกใหม่นะ</button>
+            <button id="more-btn" onclick="showFinal()">มีอีก...</button>
         </div>
     </div>
+     <div id="final-page">
+        <div class="final-title">Luv U My Friend</div>
+        <!-- รูปภาพหน้าสุดท้าย (เปลี่ยน final_photo.jpg เป็นชื่อไฟล์รูปของน้อง) -->
+        <img src="final_photo.jpg" alt="[รูปภาพสุดท้าย]" class="final-photo">
+        <button onclick="location.reload()" style="background: white; color: var(--main-accent); margin-top: 30px; width: 150px;">เริ่มใหม่</button>
+    </div>
+
 
     <script>
         const originalText = "ขอโทษที่ทำให้เสียใจนะ... จะพยายามปรับปรุงตัวให้ดีขึ้น ไม่อยากให้น้อยใจ ดีกันนะ อีอ้วรนร 🥺";
